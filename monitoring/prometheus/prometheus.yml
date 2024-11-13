@@ -1,0 +1,26 @@
+# Configurações globais
+global:
+  scrape_interval: 15s  # Intervalo de scraping para coletar métricas
+  evaluation_interval: 15s  # Intervalo de avaliação de regras
+
+# Configuração para envio remoto ao Grafana Cloud
+remote_write:
+  - url: https://prometheus-prod-40-prod-sa-east-1.grafana.net/api/prom/push
+    basic_auth:
+      username: 1769995
+      password: glc_eyJvIjoiMTIxMTM1NCIsIm4iOiJzdGFjay0xMDI2Njg0LWludGVncmF0aW9uLWNvZ255IiwiayI6ImM3QXcwejJWWTVjZTBhVjM1MDhCckY1SiIsIm0iOnsiciI6InByb2Qtc2EtZWFzdC0xIn19
+
+# Configuração de scraping do Prometheus local
+scrape_configs:
+  # Monitora o Prometheus
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Monitora a API
+  - job_name: 'api-monitoring'
+    static_configs:
+      - targets: ['localhost:8080']
+
+
+

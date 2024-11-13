@@ -1,0 +1,21 @@
+<TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Cruzeiro Test Plan" enabled="true">
+    <hashTree>
+        <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="User Simulation" enabled="true">
+            <stringProp name="ThreadGroup.num_threads">10</stringProp>
+            <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+            <stringProp name="ThreadGroup.duration">60</stringProp>
+            <!-- Configure threads, loops, ramp-up, etc. -->
+        </ThreadGroup>
+        <hashTree>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Cruzeiro Home Page" enabled="true">
+                <stringProp name="HTTPSampler.domain">www.cruzeiro.com.br</stringProp>
+                <stringProp name="HTTPSampler.port">80</stringProp>
+                <stringProp name="HTTPSampler.protocol">http</stringProp>
+                <stringProp name="HTTPSampler.path">/</stringProp>
+                <stringProp name="HTTPSampler.method">GET</stringProp>
+                <!-- More HTTP request details -->
+            </HTTPSamplerProxy>
+            <hashTree/>
+        </hashTree>
+    </hashTree>
+</TestPlan>

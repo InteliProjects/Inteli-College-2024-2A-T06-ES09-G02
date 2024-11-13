@@ -1,0 +1,23 @@
+version: '3'
+services:
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+
+  promtail:
+    image: grafana/promtail:latest
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/promtail.yaml  # Monta o arquivo de configuração no container
+      - ./positions:/etc/promtail/tmp  # Monta o diretório para o arquivo de posições
+      - C:/projetos/ES9:/mnt/logs  # Monta o diretório de logs do Windows no container
+    command: -config.file=/etc/promtail/promtail.yaml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - loki

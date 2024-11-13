@@ -1,0 +1,48 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+positions:
+  filename: /etc/promtail/tmp/positions.yaml
+
+scrape_configs:
+  - job_name: app_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: my-application-logs
+          __path__: /mnt/logs/2024-2A-T06-ES09-G02/src/API/api.json
+
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
+            msg: msg
+            ts: ts
+            caller: caller
+      - labels:
+          level: level
+          caller: caller
+
+  - job_name: secondary_logs  # Novo job para o segundo arquivo de logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: secondary-application-logs
+          __path__: /mnt/logs/2024-2A-T06-ES09-G02/src/API/tests/teste_cadastro_alcance_geografico/logs.json  # Caminho para o segundo arquivo de logs
+
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
+            msg: msg
+            ts: ts
+            caller: caller
+      - labels:
+          level: level
+          caller: caller
